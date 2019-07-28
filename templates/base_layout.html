@@ -1,0 +1,33 @@
+{% load static from staticfiles %}
+
+<html>
+<head>
+<meta charset="urf-8">
+<title>Articles</title>
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+<div class="wrapper">
+<h1><a href="{% url 'home' %}"> arti<img src="{% static 'tick.gif' %}">cle</a></h1>
+<nav>
+<ul>
+{% if user.is_authenticated %}
+<li>
+<form class="logout-link"action="{% url 'accounts:logout' %}"method="post">
+{% csrf_token %}
+<button type="submit">Logout</button>
+</form>
+</li>
+<li><a href="{% url 'articles:create' %}"class="highlight">New Article</a></li>
+{% else %}
+
+<li><a href="{% url 'accounts:login' %}">Login</a></li>
+<li><a href="{% url 'accounts:signup' %}">signup</a></li>
+{% endif %}
+</ul>
+</nav>
+{% block content %}
+{% endblock %}
+</div>
+</body>
+</html>
